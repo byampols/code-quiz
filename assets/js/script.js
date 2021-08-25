@@ -402,12 +402,66 @@ var questions = [
 ];
 
 
-//Declare other Global Variables
+//Declare other Global Variables 
+var maxQuestions = 10; //number of questions in the quiz
+var maxTime = 70; //total time alloted
+var questionScore = Math.floor(maxTime/maxQuestions); //score per correct answer
+var maxScore = maxTime + (maxQuestions * questionScore); //maximum possible score
+var timer = maxTime; //current time
+var timerDisplay = document.querySelector('#timer'); //timer display
 
+//general functions
+
+//timer function
+var startTimer = function() {
+    var countdown = setInterval(count,1000);
+    function count() {
+        var seconds = parseInt(timer, 10);
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        if (timer < 0) {
+            clearInterval(countdown);
+            timer = maxTime;
+        } else {
+            timer--;
+            timerDisplay.textContent = seconds;
+        }
+    }
+}
+
+//inarray
+var inArray = function(item, array) {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === item) {
+            return true;
+        }
+    }
+    return false;
+}
+
+startTimer();
 //Start Quiz Functions
 //Start Quiz listener(s)
 
 //Quiz Functions
+var randomizeQuestions = function() {
+    //take global list of questions and randomly pick 10 DIFFERENT ones
+    var questionsChosen = [];
+    var questionNumbers = [];
+    var x = questions.length + 1;
+    for (let i = 0; i < maxQuestions; i++) {
+        while(x > questions.length || inArray(x, questionNumbers)) {
+            var x = Math.floor(Math.random() * questions.length);
+        }
+        questionNumbers.push(x);
+    }
+
+    for (let i = 0; i < maxQuestions; i++) {
+        questionsChosen.push(questions[questionNumbers[i]]);
+    }
+    return questionsChosen;
+}
+
+
 //Quiz listener(s)
 
 //High Score Record Functions
