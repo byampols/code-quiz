@@ -1,0 +1,131 @@
+/*general styles begin*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: rgba(53, 28, 117, 1);
+    --primary-color-25: rgba(53, 28, 117, .25);
+    --secondary-color: rgba(184, 83, 230, 1);
+    --secondary-color-25: rgba(184, 83, 230, .25);
+    --light: #e2dadb;
+    --dark: #000;
+    --font: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    background: var(--light);
+}
+/*general styles end*/
+
+/*header styles begin*/
+header {
+    font-family: var(--font);
+    font-size: 2rem;
+    margin: 1% 2vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+header a {
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+
+header a:hover {
+    color: var(--primary-color);
+}
+
+header span {
+    margin: 0 1vw;
+}
+/*header styles end*/
+
+/*main styles begin*/
+main {
+    text-align: center;
+    margin: 20vh 1vw 0 1vw;
+}
+
+.main-container {
+    display: inline-block;
+    text-align: left;
+}
+
+main h1 {
+    font-family: var(--font);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.list {
+    counter-reset: list-number;
+
+    font-family: var(--font);
+    font-size: 1.5rem;
+}
+
+.list div {
+    margin: 15px 0;
+    border-top-left-radius: 45px;
+    border-bottom-left-radius: 45px;
+}
+
+.list div:nth-child(odd) {
+    background-color: var(--primary-color-25);
+}
+
+.list div:nth-child(even) {
+    background-color: var(--secondary-color-25);
+}
+
+
+.list div::before {
+    counter-increment: list-number;
+    content: counter(list-number);
+
+    margin-right: 10px;
+    width:45px;
+    height:45px;
+    display:inline-flex;
+    align-items:center;
+    justify-content: center;
+    border-radius:50%;
+    color: var(--light);
+}
+
+.list div:nth-child(odd)::before {
+    background-color:var(--primary-color);
+}
+
+.list div:nth-child(even)::before {
+    background-color:var(--secondary-color);
+}
+
+.interactives-container {
+    display: table;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.btn {
+    padding: 1rem;
+    margin: .5rem 0px;
+    font-family: var(--font);
+    font-size: 1.5rem;
+    background: var(--primary-color);
+    color: var(--light);
+    border-radius: 10px;
+}
+
+.btn:hover {
+    background: var(--secondary-color);
+}
+
+.answer-btn {
+    text-align: left;
+    width: 50%;
+}
+/*main styles end*/
