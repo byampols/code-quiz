@@ -403,12 +403,19 @@ var questions = [
 
 
 //Declare other Global Variables 
+
+//function variables
 var maxQuestions = 10; //number of questions in the quiz
 var maxTime = 70; //total time alloted
 var questionScore = Math.floor(maxTime/maxQuestions); //score per correct answer
 var maxScore = maxTime + (maxQuestions * questionScore); //maximum possible score
 var timer = maxTime; //current time
+var score = 0;
+var index = 0;
+
+//html variables
 var timerDisplay = document.querySelector('#timer'); //timer display
+var interactivesDisplay = document.querySelector('.interactives-container');
 
 //general functions
 
@@ -461,6 +468,28 @@ var randomizeQuestions = function() {
     return questionsChosen;
 }
 
+var isRight = function(event) {
+    targetE1 = event.target;
+    if (targetE1.className === "btn answer-btn") {
+        var answer = targetE1.getAttribute("answer");
+        if (answer === "true") {
+            score += questionScore;
+            questionMaker();
+        } else if (answer === "false") {
+            timer -= 5;
+            console.log(timer);
+            questionMaker();
+        }
+    }
+    return null;
+}
+
+var questionMaker = function() {
+    //print question at current index
+    //increment index
+}
+
+
 
 //Quiz listener(s)
 
@@ -469,3 +498,6 @@ var randomizeQuestions = function() {
 
 //High Score Functions
 //High Score listener(s)
+
+var questionsChosen = randomizeQuestions();
+interactivesDisplay.addEventListener("click", isRight);
