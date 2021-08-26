@@ -405,8 +405,8 @@ var questions = [
 //Declare other Global Variables 
 
 //function variables
-var maxQuestions = 1; //number of questions in the quiz
-var maxTime = 70; //total time alloted
+var maxQuestions = 10; //number of questions in the quiz
+var maxTime = 100; //total time alloted
 var questionScore = Math.floor(maxTime/maxQuestions); //score per correct answer
 var maxScore = maxTime + (maxQuestions * questionScore); //maximum possible score
 var timer = maxTime; //current time
@@ -580,6 +580,8 @@ var startQuiz = function() {
     if(!window.location.pathname.includes('/index.html')) {
         return false;
     }
+    var introE1 = document.querySelector("#quiz-intro");
+    introE1.innerHTML = "";
     startTimer();
     questionMaker();
     interactivesDisplay.addEventListener("click", isRight);
@@ -677,6 +679,12 @@ var questionsChosen = randomizeQuestions();
 if (window.location.pathname.includes('/highscores.html')) {
     highScoreDraw();
 }
+
+if (window.location.pathname.includes('/index.html')) {
+    //addEventListener for startgame
+    var containerE1 = document.querySelector(".main-container");
+    containerE1.addEventListener("click",startQuiz);
+}
 //startQuiz();
-//addEventListener for startgame
+
 
