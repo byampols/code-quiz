@@ -579,15 +579,17 @@ var initialHandler = function (event) {
 }
 
 //Phase functions
-var startQuiz = function() {
+var startQuiz = function(event) {
     if(!window.location.pathname.includes('/index.html')) {
         return false;
     }
-    var introE1 = document.querySelector("#quiz-intro");
-    introE1.innerHTML = "";
-    startTimer();
-    questionMaker();
-    interactivesDisplay.addEventListener("click", isRight);
+    if (event.target.className === "btn") {
+        var introE1 = document.querySelector("#quiz-intro");
+        introE1.innerHTML = "";
+        startTimer();
+        questionMaker();
+        interactivesDisplay.addEventListener("click", isRight);
+    }
 }
 
 var endGame = function() {
