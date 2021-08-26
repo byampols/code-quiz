@@ -23,18 +23,19 @@ Deployed application: [the deployed quiz](https://byampols.github.io/code-quiz/)
 * You can clear the scoreboard, or return to the quiz
 * To view the scoreboard at any time, press "View high scores"
 
-[Starting the Quiz](assets/images/start-quiz.png)
-[Quiz in Progress](assets/images/quiz-in-progress.png)
-[Inputting High Score](assets/images/input-high-score.png)
-[High Score page](assets/images/high-scores.png)
+### Images
+* [Starting the Quiz](assets/images/start-quiz.png)
+* [Quiz in Progress](assets/images/quiz-in-progress.png)
+* [Inputting High Score](assets/images/input-high-score.png)
+* [High Score page](assets/images/high-scores.png)
 
 ## Credits
 
 ### Tutorials Used
-[How to write a countdown timer in JavaScript](https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript).
-[Styling Numbered Lists with CSS counters](https://blog.logrocket.com/styling-numbered-lists-with-css-counters/).
-[Delay, Sleep, Pause, & Wait in JavaScript](https://www.sitepoint.com/delay-sleep-pause-wait/).
-[Checking for all letters](https://www.w3resource.com/javascript/form/all-letters-field.php).
+* [How to write a countdown timer in JavaScript](https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript).
+* [Styling Numbered Lists with CSS counters](https://blog.logrocket.com/styling-numbered-lists-with-css-counters/).
+* [Delay, Sleep, Pause, & Wait in JavaScript](https://www.sitepoint.com/delay-sleep-pause-wait/).
+* [Checking for all letters](https://www.w3resource.com/javascript/form/all-letters-field.php).
 
 ## License
 
