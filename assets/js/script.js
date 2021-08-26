@@ -405,7 +405,7 @@ var questions = [
 //Declare other Global Variables 
 
 //function variables
-var maxQuestions = 1; //number of questions in the quiz
+var maxQuestions = 10; //number of questions in the quiz
 var maxTime = 70; //total time alloted
 var questionScore = Math.floor(maxTime/maxQuestions); //score per correct answer
 var maxScore = maxTime + (maxQuestions * questionScore); //maximum possible score
