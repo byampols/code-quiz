@@ -656,6 +656,9 @@ var indexTransition = function() {
 
 var highScoreDraw = function () {
     var scoreList = JSON.parse(localStorage.getItem("highScores"));
+    if (scoreList === null) {
+        scoreList = [];
+    }
     var newHighScore = JSON.parse(localStorage.getItem("newHighScore"))
     var headerE1 = document.querySelector("#new-score");
     headerE1.innerText = "";
