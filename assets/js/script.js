@@ -488,13 +488,16 @@ var randomizeQuestions = function() {
 
 var isRight = function(event) {
     targetE1 = event.target;
+    var wrong = document.querySelector("#wrong");
     if (targetE1.className === "btn answer-button") {
         var answer = targetE1.getAttribute("answer");
         if (answer === "true") {
             score += questionScore;
+            wrong.textContent = "Nice! That answer was CORRECT!"
             questionMaker();
         } else if (answer === "false") {
             timer -= 5;
+            wrong.textContent = "Sorry, that answer was WRONG!"
             questionMaker();
         }
     }
