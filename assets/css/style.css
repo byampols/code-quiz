@@ -12,6 +12,7 @@
     --secondary-color-25: rgba(184, 83, 230, .25);
     --light: #e2dadb;
     --dark: #000;
+    --grey: rgba(0,0,0,.65);
     --font: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -41,6 +42,13 @@ header a:hover {
 header span {
     margin: 0 1vw;
 }
+
+#new-score {
+    width: 20%;
+    padding: 1vh 0;
+    color: var(--grey);
+    font-style: italic;
+}
 /*header styles end*/
 
 /*main styles begin*/
@@ -67,27 +75,27 @@ main h2 {
     margin-bottom: 20px;
 }
 
-.list {
+#score-list {
     counter-reset: list-number;
     font-size: 1.5rem;
 }
 
-.list div {
+#score-list div {
     margin: 15px 0;
     border-top-left-radius: 45px;
     border-bottom-left-radius: 45px;
 }
 
-.list div:nth-child(odd) {
+#score-list div:nth-child(odd) {
     background-color: var(--primary-color-25);
 }
 
-.list div:nth-child(even) {
+#score-list div:nth-child(even) {
     background-color: var(--secondary-color-25);
 }
 
 
-.list div::before {
+#score-list div::before {
     counter-increment: list-number;
     content: counter(list-number);
 
@@ -101,11 +109,11 @@ main h2 {
     color: var(--light);
 }
 
-.list div:nth-child(odd)::before {
+#score-list div:nth-child(odd)::before {
     background-color:var(--primary-color);
 }
 
-.list div:nth-child(even)::before {
+#score-list div:nth-child(even)::before {
     background-color:var(--secondary-color);
 }
 
@@ -113,11 +121,6 @@ main h2 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-}
-
-#enter-initials {
-    display: flex;
-    flex-direction: row;
 }
 
 .btn {
@@ -136,5 +139,27 @@ main h2 {
 .answer-btn {
     text-align: left;
     width: 50%;
+}
+
+#enter-initials {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#enter-initials p {
+    font-size: 1.85rem;
+    margin-right: 10px;
+}
+
+#enter-initials input {
+    padding: 1rem;
+    margin: .5rem 0px;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+#high-score-main {
+    margin: 0 1vw;
 }
 /*main styles end*/

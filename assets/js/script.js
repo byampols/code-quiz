@@ -405,12 +405,14 @@ var questions = [
 //Declare other Global Variables 
 
 //function variables
-var maxQuestions = 10; //number of questions in the quiz
+var maxQuestions = 1; //number of questions in the quiz
 var maxTime = 70; //total time alloted
 var questionScore = Math.floor(maxTime/maxQuestions); //score per correct answer
 var maxScore = maxTime + (maxQuestions * questionScore); //maximum possible score
 var timer = maxTime; //current time
 var countdown = false; //countdown timer
+var highScores = "[]";
+var highScoresLength = 10;
 var score = 0;
 var index = 0;
 
@@ -430,7 +432,6 @@ var startTimer = function() {
         seconds = seconds < 10 ? "0" + seconds : seconds;
         if (timer < 0) {
             stopTimer();
-            timer = 0;
             endGame();
         } else {
             timer--;
@@ -441,6 +442,7 @@ var startTimer = function() {
 
 var stopTimer = function() {
     clearInterval(countdown);
+    timer += 1;
 }
 
 //inarray
@@ -453,7 +455,17 @@ var inArray = function(item, array) {
     return false;
 }
 
-startTimer();
+//allLetter
+var allLetter = function(text) {
+    var letters = /^[A-za-z]+$/;
+    if (typeof text !== 'string') {
+        return false;
+    } else if(text.match(letters)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 //Quiz Functions
 var randomizeQuestions = function() {
@@ -512,17 +524,63 @@ var questionMaker = function() {
 }
 
 //End Game Functions
-var sumbitToLeaderboard = function (event) {
+var highScoresSort = function(initials, score) {
+    var newHighScore = false;
+    var highScoreEntered = false;
+    var currentScore = {
+        name: initials.toUpperCase(),
+        score: score
+    }
+    if (localStorage.getItem("highScores") !== null) {
+        highScores = localStorage.getItem("highScores");
+    } 
+    highScores = JSON.parse(highScores);
+    if (highScores.length === 0) {
+        highScores.push(currentScore);
+        newHighScore = true;
+    } else {
+        for (let i = 0; i < highScores.length; i++) {
+            if (highScores[i].score < currentScore.score) {
+                if (i === 0) {
+                    newHighScore = true;
+                }
+                highScores.splice(i, 0, currentScore);
+                highScoreEntered = true;
+                break;
+            }
+        }
+        if (highScoreEntered === false) {
+            highScores.push(currentScore);
+        }
+        while (highScores.length > highScoresLength) {
+            highScores.pop();
+        }
+    }
+    localStorage.setItem("newHighScore", JSON.stringify(newHighScore));
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    window.location.href = "./highscores.html";
+    highScoreTransition();
+}
+
+var initialHandler = function (event) {
     //if you hear submit, then check initials, and send input (initials) and final score
+    event.preventDefault();
+    var formE1 = event.target;
+    var initialInput = formE1.querySelector("input[name='initials']").value;
+    if (initialInput.length > 2 || !allLetter(initialInput)) {
+        alert("Please enter your initials.");
+        return false;
+    } else {
+        highScoresSort(initialInput, score);
+    }
 }
 
 //Phase functions
-var startGame = function(event) {
-    //when start game button is pressed, run takeQuiz();
-    takeQuiz();
-}
-
-var takeQuiz = function() {
+var startQuiz = function() {
+    if(!window.location.pathname.includes('/index.html')) {
+        return false;
+    }
+    startTimer();
     questionMaker();
     interactivesDisplay.addEventListener("click", isRight);
 }
@@ -534,27 +592,91 @@ var endGame = function() {
     title.innerText = "All Done!";
     //header 2 = Your final score is 22
     subtitle.innerText = `Your final score is ${score} out of a maximum of ${maxScore}.`
-    //Enter initials [input] [submit]
-    var initialContainer = document.createElement("div");
+    //create form for inputs
+    var initialContainer = document.createElement("form");
     initialContainer.id = "enter-initials";
+    //Create "enter initials" text
     var initialStatement = document.createElement("p");
     initialStatement.textContent = "Enter initials:"
+    //create the input box
     var initialInput = document.createElement("input");
     initialInput.type = "text";
     initialInput.name = "initials";
     initialInput.placeholder = "Your Initials";
+    //create the submit button
     var initialSubmit = document.createElement("button");
-
+    initialSubmit.className = "btn";
+    initialSubmit.id = "submit-initials";
+    initialSubmit.type = "submit";
+    initialSubmit.textContent = "Submit";
     //append statement, input box, and submit button to the container
     initialContainer.appendChild(initialStatement);
     initialContainer.appendChild(initialInput);
     initialContainer.appendChild(initialSubmit);
     interactivesDisplay.appendChild(initialContainer);
-
     //add event listener for submit button
+    interactivesDisplay.removeEventListener("click", isRight);
+    interactivesDisplay.addEventListener("submit", initialHandler);
 }
 
+//high score page functions
+var highScoreEventHandler = function(event) {
+    eventE1 = event.target;
+    if (eventE1.id === "go-back") {
+        //go back to index
+        window.location.href = "./index.html";
+        indexTransition();
+    }
+
+    if (eventE1.id === "clear") {
+        //clear highscores and reload
+        localStorage.setItem("newHighScore", "false");
+        localStorage.setItem("highScores", "[]");
+        highScoreDraw();
+    }
+}
+
+
+var highScoreTransition = function() {
+    if(!window.location.pathname.includes('/highscores.html')) {
+        setTimeout(highScoreTransition, 1000);
+    }
+}
+
+var indexTransition = function() {
+    if(!window.location.pathname.includes('/index.html')) {
+        setTimeout(highScoreTransition, 1000);
+    }
+}
+
+var highScoreDraw = function () {
+    var scoreList = JSON.parse(localStorage.getItem("highScores"));
+    var newHighScore = JSON.parse(localStorage.getItem("newHighScore"))
+    var headerE1 = document.querySelector("#new-score");
+    headerE1.innerText = "";
+    if (newHighScore === true) {
+        headerE1.innerText = "New High Score!";
+        localStorage.setItem("newHighScore","false");
+    }
+    var listE1 = document.querySelector("#score-list");
+    listE1.innerHTML = "";
+    for (let i = 0; i < scoreList.length; i++) {
+        var scoreCard = document.createElement("div");
+        var scoreText = `${scoreList[i].name} - ${scoreList[i].score}`;
+        scoreCard.textContent = scoreText;
+        listE1.appendChild(scoreCard);
+    }
+    var containerE1 = document.querySelector(".main-container");
+    containerE1.addEventListener("click", highScoreEventHandler);
+}
+
+
+
+//start the functions
 var questionsChosen = randomizeQuestions();
-takeQuiz();
+if (window.location.pathname.includes('/highscores.html')) {
+    highScoreDraw();
+}
+//startQuiz();
 //addEventListener for startgame
 
