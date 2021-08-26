@@ -46,24 +46,29 @@ header span {
 /*main styles begin*/
 main {
     text-align: center;
+    font-family: var(--font);
     margin: 20vh 1vw 0 1vw;
 }
 
 .main-container {
+    width: 75%;
     display: inline-block;
     text-align: left;
 }
 
 main h1 {
-    font-family: var(--font);
-    font-size: 2.5rem;
+    font-size: 2.15rem;
+    margin-bottom: 20px;
+}
+
+main h2 {
+    font-size: 1.85rem;
+    font-weight: normal;
     margin-bottom: 20px;
 }
 
 .list {
     counter-reset: list-number;
-
-    font-family: var(--font);
     font-size: 1.5rem;
 }
 
@@ -105,15 +110,19 @@ main h1 {
 }
 
 .interactives-container {
-    display: table;
-    table-layout: fixed;
-    border-collapse: collapse;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#enter-initials {
+    display: flex;
+    flex-direction: row;
 }
 
 .btn {
     padding: 1rem;
     margin: .5rem 0px;
-    font-family: var(--font);
     font-size: 1.5rem;
     background: var(--primary-color);
     color: var(--light);
