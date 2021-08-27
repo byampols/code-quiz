@@ -578,7 +578,7 @@ var initialHandler = function (event) {
     }
 }
 
-//Phase functions
+//Functions that control the phases of the game (start --> quiz, quiz --> end)
 var startQuiz = function(event) {
     if(!window.location.pathname.includes('/index.html')) {
         return false;
@@ -643,7 +643,7 @@ var highScoreEventHandler = function(event) {
     }
 }
 
-
+//timeout functions to ensure that the proper page is loaded before executing code
 var highScoreTransition = function() {
     if(!window.location.pathname.includes('/highscores.html')) {
         setTimeout(highScoreTransition, 1000);
@@ -656,6 +656,7 @@ var indexTransition = function() {
     }
 }
 
+//draw the high score page and activate the listener
 var highScoreDraw = function () {
     var scoreList = JSON.parse(localStorage.getItem("highScores"));
     if (scoreList === null) {
@@ -682,17 +683,17 @@ var highScoreDraw = function () {
 
 
 
-//start the functions
+//Choose a random question
 var questionsChosen = randomizeQuestions();
+//if we're on high scores, draw high scores
 if (window.location.pathname.includes('/highscores.html')) {
     highScoreDraw();
 }
-
+//if we're on index, listen for start game
 if (window.location.pathname.includes('/index.html')) {
     //addEventListener for startgame
     var containerE1 = document.querySelector(".main-container");
     containerE1.addEventListener("click",startQuiz);
 }
-//startQuiz();
 
 
